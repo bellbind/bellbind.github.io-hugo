@@ -12,7 +12,7 @@ then
    $RUN git push
    $RUN cd public/
    DELETED=$(git ls-files --deleted)
-   $RUN git rm $DELETED
+   echo $DELETED | xargs $RUN git rm 
    $RUN git add .
    $RUN git commit -m "Add post: $DATE"
    $RUN git push  
