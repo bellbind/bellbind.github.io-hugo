@@ -1,11 +1,12 @@
 ---
-title: "Hugo Support"
+title: "hugoの支援コマンド"
 date: 2017-07-01T02:47:01+09:00
 categories: ["2017-07"]
 tags: ["hugo", "github", "bash"]
 draft: false
 ---
 
+生成と編集でのディレクトリ指定とか、複数にgithub pushとか面倒なので、
 hugo用支援コマンドを作った。
 
 <!--more-->
@@ -13,6 +14,8 @@ hugo用支援コマンドを作った。
 - https://github.com/bellbind/bellbind.github.io-hugo の/bin/以下
 
 ## bin/post
+
+記事ファイルの生成とエディタ立ち上げをするコマンド:
 
 ```bash
 #!/bin/bash
@@ -32,6 +35,8 @@ $RUN ${EDITOR=emacs} content/$POST
 `./bin/post hugo-support` または `./bin/post` (日付で`01.md`になる)のように使う。
 
 ## bin/sync
+
+HTML生成と、ソースとサイトのgithubへのアップロードをするコマンド:
 
 ```bash
 #!/bin/bash
