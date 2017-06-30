@@ -77,7 +77,7 @@ $ git push
 
 そのためarchitypes/default.mdを以下のように書いた。
 
-```default.md
+```md
 ---
 title: "{{ replace .TranslationBaseName "-" " " | title }}"
 slug: "{{ .TranslationBaseName }}"
