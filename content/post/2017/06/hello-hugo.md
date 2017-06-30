@@ -77,9 +77,10 @@ $ git push
 
 そのためarchitypes/default.mdを以下のように書いた。
 
-```md
+```default.md
 ---
 title: "{{ replace .TranslationBaseName "-" " " | title }}"
+slug: "{{ .TranslationBaseName }}"
 date: {{ .Date }}
 categories: ["{{dateFormat "2006-01" .Date}}"]
 tags: []
