@@ -1,25 +1,28 @@
 baseURL = "https://bellbind.github.io/"
-languageCode = "ja-jp"
+languageCode = "en"
 title = "bellbind.github.io"
 theme = "icarus"
 pagenate = 100
 hasCJKLanguage = true
+#disqusShortname = "bellbind"
+#googleAnalytics = ""
+footnotereturnlinkcontents = "↩"
+
 
 [permalinks]
     post = "/:year/:month/:day/:slug"
 
 [params]
-    # Tell me who you are
     author = "bellbind"
-    #bio = ""
+    bio = ""
     #location = "Earth"
-    #site_description = "hello"
+    site_description = "hello"
     copyright  = "Powered by [Hugo](//gohugo.io). Theme by [Icarus](https://github.com/digitalcraftsman/hugo-icarus-theme)."
-    avatar = "https://avatars.githubusercontent.com/bellbind"
+    avatar = "css/images/avatar.png"
     # Enter your email address to display your Gravatar icon in the profile. If not set the theme
     # will fallback to the avatar.
     gravatar = "bellbind@gmail.com"
-    #logo = "css/images/logo.png"
+    logo = "css/images/logo.png"
     disable_mathjax = false # set to true to disable MathJax
 
     # define which types of pages should be shown. By default the type with the most regular pages
