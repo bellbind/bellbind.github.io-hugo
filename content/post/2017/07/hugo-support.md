@@ -22,6 +22,8 @@ hugo用支援コマンドを作った。
 #!/bin/bash
 
 #RUN=echo
+CUR=$(dirname $(dirname $0))
+$RUN cd $CUR
 TITLE=$1
 DAY=$(date "+%d")
 if [[ -z $TITLE ]]
@@ -43,17 +45,21 @@ HTML生成と、ソースとサイトのgithubへのアップロードをする�
 #!/bin/bash
 
 #RUN=echo
-
+CUR=$(dirname $(dirname $0))
+$RUN cd $CUR
 DATE=$(LANG=C date)
+$RUN rm -r public/*
 if $RUN hugo
 then
    $RUN git add content
    $RUN git commit -m "Add post: $DATE"
    $RUN git push
    $RUN cd public/
+   DELETED=$(git ls-files --deleted)
+   $RUN git rm $DELETED
    $RUN git add .
    $RUN git commit -m "Add post: $DATE"
-   $RUN git push
+   $RUN git push  
 fi
 ```
 
