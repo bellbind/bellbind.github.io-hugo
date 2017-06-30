@@ -1,5 +1,6 @@
 ---
 title: "hugoの支援コマンド"
+slug: "hugo-support"
 date: 2017-07-01T02:47:01+09:00
 categories: ["2017-07"]
 tags: ["hugo", "github", "bash"]
