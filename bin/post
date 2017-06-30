@@ -1,6 +1,8 @@
 #!/bin/bash
 
 #RUN=echo
+CUR=$(dirname $(dirname $0))
+$RUN cd $CUR
 TITLE=$1
 DAY=$(date "+%d")
 if [[ -z $TITLE ]]
