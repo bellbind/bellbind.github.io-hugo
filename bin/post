@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#RUN=echo
+TITLE=$1
+DAY=$(date "+%d")
+if [[ -z $TITLE ]]
+then
+    TITLE=$DAY
+fi
+POST=$(date "+post/%Y/%m")/${TITLE}.md
+$RUN hugo new $POST
+$RUN ${EDITOR=emacs} content/$POST

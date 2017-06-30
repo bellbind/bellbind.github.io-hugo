@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#RUN=echo
+
+DATE=$(LANG=C date)
+if $RUN hugo
+then
+   $RUN git add content
+   $RUN git commit -m "Add post: $DATE"
+   $RUN git push
+   $RUN cd public/
+   $RUN git add .
+   $RUN git commit -m "Add post: $DATE"
+   $RUN git push  
+fi
