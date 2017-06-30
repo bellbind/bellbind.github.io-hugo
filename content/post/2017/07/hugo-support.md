@@ -2,13 +2,15 @@
 title: "Hugo Support"
 date: 2017-07-01T02:47:01+09:00
 categories: ["2017-07"]
-tags: []
+tags: ["hugo", "github", "bash"]
 draft: false
 ---
 
-hugo用支援コマンドを作る。
+hugo用支援コマンドを作った。
 
 <!--more-->
+
+- https://github.com/bellbind/bellbind.github.io-hugo の/bin/以下
 
 ## bin/post
 
@@ -26,6 +28,8 @@ POST=$(date "+post/%Y/%m")/${TITLE}.md
 $RUN hugo new $POST
 $RUN ${EDITOR=emacs} content/$POST
 ```
+
+`./bin/post hugo-support` または `./bin/post` (日付で`01.md`になる)のように使う。
 
 ## bin/sync
 
@@ -46,3 +50,5 @@ then
    $RUN git push
 fi
 ```
+
+`./bin/sync` で使う。
