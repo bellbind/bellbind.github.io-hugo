@@ -1,3 +1,99 @@
-baseURL = "http://example.org/"
-languageCode = "en-us"
-title = "My New Hugo Site"
+baseURL = "https://bellbind.github.io/"
+languageCode = "ja-jp"
+title = "bellbind.github.io"
+theme = "icarus"
+pagenate = 100
+hasCJKLanguage = true
+
+[permalinks]
+    post = "/:year/:month/:day/:slug"
+
+[params]
+    # Tell me who you are
+    author = "bellbind"
+    #bio = ""
+    #location = "Earth"
+    #site_description = "hello"
+    copyright  = "Powered by [Hugo](//gohugo.io). Theme by [Icarus](https://github.com/digitalcraftsman/hugo-icarus-theme)."
+    avatar = "https://avatars.githubusercontent.com/bellbind"
+    # Enter your email address to display your Gravatar icon in the profile. If not set the theme
+    # will fallback to the avatar.
+    gravatar = "bellbind@gmail.com"
+    #logo = "css/images/logo.png"
+    disable_mathjax = false # set to true to disable MathJax
+
+    # define which types of pages should be shown. By default the type with the most regular pages
+    mainSections = ["post"]
+
+    # Format dates with Go's time formatting
+    date_format = "2006-01-02"
+
+    # Add custom assets with their paths relative to the static folder
+    custom_css = []
+    custom_js  = []
+
+# Create custom menu entries by defining a label and a link for
+# them. Since you can also link posts, you've the option the
+# place the links before or after them.
+#
+# E.g.: "Home" appears before all linked posts in the menu
+# and "Tags" / "Categories" after them.
+[[params.menu]]
+    before = true
+    label  = "Home"
+    link   = "/"
+
+[[params.menu]]
+    before = false
+    label  = "Tags"
+    link   = "tags/"
+
+[[params.menu]]
+    before = false
+    label  = "Categories"
+    link   = "categories/"
+
+# Enter a link for the follow button on the left
+[params.profile]
+    follow_button = "https://gist.github.com/bellbind"
+
+[social]
+# Add your social network accounts to the profile section on the left
+# by entering your username. The links to your account will be
+# created automatically.
+    github          = "bellbind"
+    gitlab          = ""
+    bitbucket       = ""
+    jsfiddle        = ""
+    codepen         = ""
+    foursquare      = ""
+    dribbble        = ""
+    deviantart      = ""
+    behance         = ""
+    flickr          = ""
+    instagram       = "bellbind"
+    youtube         = ""
+    vimeo           = ""
+    vine            = ""
+    medium          = "bellbind"
+    wordpress       = ""
+    tumblr          = "bellbind"
+    xing            = ""
+    linkedin        = ""
+    slideshare      = ""
+    stackoverflow   = ""
+    reddit          = ""
+    pinterest       = ""
+    googleplus      = ""
+    facebook        = ""
+    facebook_admin  = ""
+    twitter_domain  = ""
+    twitter         = "bellbind"
+
+# Enable and disable widgets for the right sidebar
+[params.widgets]
+    recent_articles = true
+    categories = true
+    tags = true
+    tag_cloud = true
+
