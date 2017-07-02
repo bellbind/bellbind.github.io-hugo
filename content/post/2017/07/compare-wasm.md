@@ -27,18 +27,21 @@ but the effect as inhibitator is wider than that of activator.
 
 ## Active demo
 
-- Source Codes: [gist:dd1c0cd9cbe422caff8dcdae1010ad37](https://gist.github.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37)
-- Pure ES6 version: [host on githack](https://gist.githack.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37/raw/index-es6.html)
-- asm.js version: [host on githack](https://gist.githack.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37/raw/index-asm.html)
-- WebAssembly version: [host on githack](https://gist.githack.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37/raw/index-wasm.html)
+| version      | link                                                                                                       |
+|:------------:|:-----------------------------------------------------------------------------------------------------------|
+| Pure ES6     | [host on githack](https://gist.githack.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37/raw/index-es6.html)   |
+| asm.js       | [host on githack](https://gist.githack.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37/raw/index-asm.html)   |
+| WebAssembly  | [host on githack](https://gist.githack.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37/raw/index-wasm.html)  |
+|              |                                                                                                            |
+|(Source Codes)| [gist:dd1c0cd9cbe422caff8dcdae1010ad37](https://gist.github.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37) |
 
 The programs embed the benchmark with `console.time()/timeEnd()` that prints execution times(ms) on  "Web Console".
 
 ## Noten on pure ES6 version
 
-The convolution data is a list of `{x, y, f}` tuple, not an usual number matrix. 
+The convolution representation is a list of `{x, y, f}` tuple, not an usual number matrix. 
 The `f` ia a factor value. The `x` and` y` is a relative offsets as `-r` to `r`.
-It can apply linear arrays with `map()` and `reduce()` as:
+It can apply to linear arrays with `map()` and `reduce()` as:
 
 ```js
 // mat[y * w + x] = v
@@ -47,8 +50,8 @@ function get(mat, x, y) {
 }
 
 const result = mat.map((v, i) => {
-    const x = i % w, y = i / w | 0;
-    return conv.reduce((s, c) => s + c.f * get(mat, x + c.x, y + c.y), 0);
+    const mx = i % w, my = i / w | 0;
+    return conv.reduce((s, {x, y, f}) => s + f * get(mat, mx + x, my + y), 0);
 });
 ```
 
@@ -77,13 +80,13 @@ The hand written asm.js module as:
 
 {{<gist bellbind dd1c0cd9cbe422caff8dcdae1010ad37 "conv.asm.js">}}
 
-The module is loaded with `fetch()` and eval with `Function()`.
-Applying convotion with the exported `conv(coffs, clen, soffs, len, w, doffs)` function as:
+The asm.js module is loaded with `fetch()` and eval with `Function()`.
+Applying convolution with the exported `conv(coffs, clen, soffs, len, w, doffs)` function as:
 
 ```js
-// cA: [int32, int32, float64] strides as Float64Array
-// sF, dA:  mat[y * w + x]  as Float64Array
-conv(cA.byteOffset, cA.length / 2, sF.byteOffset, sF.length, w, dA.byteOffset);
+// cpnv: [int32, int32, float64] strides as Float64Array
+// cells, result:  mat[y * w + x] as Float64Array
+conv(conv.byteOffset, conv.length / 2, cells.byteOffset, cells.length, w, result.byteOffset);
 ```
 
 ### Note on asm.js programming
@@ -171,7 +174,4 @@ $ diff conv-asm.wast  conv.wast
 |ES6   | 70ms    | 240ms   |
 |wasm  | 80ms    | 130ms   |
 |asm.js| 80ms    | 210ms   |
-
-
-
 
