@@ -1,6 +1,13 @@
 #!/bin/bash
 
 #RUN=echo
+if [[ -z $1 ]]
+then
+    COMMENT="Add post"
+else
+    COMMENT="$1"
+fi
+
 CUR=$(dirname $(dirname $0))
 $RUN cd $CUR
 DATE=$(LANG=C date)
@@ -8,12 +15,12 @@ $RUN rm -r public/*
 if $RUN hugo
 then
    $RUN git add content
-   $RUN git commit -m "Add post: $DATE"
+   $RUN git commit -m "$COMMENT: $DATE"
    $RUN git push
    $RUN cd public/
    DELETED=$(git ls-files --deleted)
    echo $DELETED | xargs $RUN git rm 
    $RUN git add .
-   $RUN git commit -m "Add post: $DATE"
+   $RUN git commit -m "$COMMENT: $DATE"
    $RUN git push  
 fi
