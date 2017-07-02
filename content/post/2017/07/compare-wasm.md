@@ -35,7 +35,7 @@ but the effect as inhibitator is wider than that of activator.
 |              |                                                                                                            |
 |(Source Codes)| [gist:dd1c0cd9cbe422caff8dcdae1010ad37](https://gist.github.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37) |
 
-The programs embed the benchmark with `console.time()/timeEnd()` that prints execution times(ms) on  "Web Console".
+The programs embed the benchmark with [`performance.now()`](https://www.w3.org/TR/hr-time-1/#dom-performance-now).
 
 ## Notes on plain ES6 version
 
