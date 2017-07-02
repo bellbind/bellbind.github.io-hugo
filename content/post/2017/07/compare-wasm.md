@@ -9,7 +9,7 @@ draft: false
 
 For comparing the performance of WebAssembly runtimes with others,
 I published on-browser programs with the same algorithm 
-as "pure ES6", "asm.js" and "WebAssembly" **without emscripten**.
+as "plain ES6", "asm.js" and "WebAssembly" **without emscripten**.
 
 <!--more-->
 
@@ -29,7 +29,7 @@ but the effect as inhibitator is wider than that of activator.
 
 | version      | link                                                                                                       |
 |:------------:|:-----------------------------------------------------------------------------------------------------------|
-| Pure ES6     | [host on githack](https://gist.githack.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37/raw/index-es6.html)   |
+| Plain ES6    | [host on githack](https://gist.githack.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37/raw/index-es6.html)   |
 | asm.js       | [host on githack](https://gist.githack.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37/raw/index-asm.html)   |
 | WebAssembly  | [host on githack](https://gist.githack.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37/raw/index-wasm.html)  |
 |              |                                                                                                            |
@@ -37,7 +37,7 @@ but the effect as inhibitator is wider than that of activator.
 
 The programs embed the benchmark with `console.time()/timeEnd()` that prints execution times(ms) on  "Web Console".
 
-## Notes on pure ES6 version
+## Notes on plain ES6 version
 
 - [script-es6.js](https://gist.github.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37#file-script-es6-js)
 
