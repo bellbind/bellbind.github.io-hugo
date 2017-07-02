@@ -3,7 +3,7 @@ title: "Comparing WebAssembly with asm.js and pure ES6"
 slug: "compare-wasm"
 date: 2017-07-03T01:45:18+09:00
 categories: ["2017-07"]
-tags: []
+tags: ["WebAssemby", "asm.js", "ES6"]
 draft: false
 ---
 
