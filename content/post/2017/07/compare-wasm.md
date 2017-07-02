@@ -20,7 +20,7 @@ as a survival between activators and inhibitators.
 A simple generator of the turing pattern is a cell automaton that
 each cell is also activator and inhibitator for neighbor cellss.
 
-- cell[t+1] = cell[t] + actovators[t] - inhibitators[t]
+- cell[t+1] = cell[t] + activators[t] - inhibitators[t]
 
 The effect of activators and inhibitators is just gathering value of neighbor cells,
 but the effect as inhibitator is wider than that of activator.
