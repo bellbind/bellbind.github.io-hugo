@@ -141,7 +141,7 @@ $ diff conv-asm.wast  conv.wast
 33c19
 <     (call $i32u-rem
 ---
->     ($i32.rem_u
+>     (i32.rem_u
 54,65d39
 <  (func $i32u-div (param $0 i32) (param $1 i32) (result i32)
 <   (if (result i32)
@@ -158,11 +158,11 @@ $ diff conv-asm.wast  conv.wast
 92c66
 <       (call $i32u-rem
 ---
->       ($i32.rem_u
+>       (i32.rem_u
 98c72
 <       (call $i32u-div
 ---
->       ($i32.div_u
+>       (i32.div_u
 ```
 
 ## Benchmark result
