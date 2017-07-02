@@ -37,7 +37,7 @@ but the effect as inhibitator is wider than that of activator.
 
 The programs embed the benchmark with `console.time()/timeEnd()` that prints execution times(ms) on  "Web Console".
 
-## Noten on pure ES6 version
+## Notes on pure ES6 version
 
 The convolution representation is a list of `{x, y, f}` tuple, not an usual number matrix. 
 The `f` ia a factor value. The `x` and` y` is a relative offsets as `-r` to `r`.
@@ -58,7 +58,7 @@ const result = mat.map((v, i) => {
 Two convolution are used as activator and inhibitator applied in each step.
 These convolutions forms as circle effect like a force.
 
-## Noten on asm.js version
+## Notes on asm.js version
 
 For asm.js, the list of tuple of `{x, y, f}`  turns `ArrayBuffer` as strides of `[int32, int32, float64]` as:
 
@@ -89,7 +89,7 @@ Applying convolution with the exported `conv(coffs, clen, soffs, len, w, doffs)`
 conv(conv.byteOffset, conv.length / 2, cells.byteOffset, cells.length, w, result.byteOffset);
 ```
 
-### Note on asm.js programming
+### Notes on asm.js programming
 
 I used the [dherman/asm.js](https://github.com/dherman/asm.js) as the syntax checker.
 But the "asmjs" command does not accept bynarien's accpetable asm.js files
@@ -99,17 +99,17 @@ I made a little modification for accpeting non cjs module style as:
 
 - https://github.com/bellbind/asm.js
 
-## Note on WebAssembly version
+## Notes on WebAssembly version
 
 I use [binaryen](https://github.com/WebAssembly/binaryen)'s "asm2wasm" command for making the WebAssembly version.
-The "asm2wams" generated function bodies seems direct translation of the "conv.asm.js" program.
+The "asm2wams" generated function bodies seem as direct translation of the "conv.asm.js" program.
 But not directly used the "asm2wasm" generated code, I applyed a little optimization as:
 
 - Remove all `import` section, and add `export` `memory`
 - Remove generated `$i32u-rem` `func`, and replace its call part with `i32.rem_u` operation in `$get` and `$conv` bodies.
 - Remove generated `$i32u-div` `func`, and replace its call part with `i32.div_u` operation in `$conv` body.
 
-as:
+Complete diff:
 
 ```bash
 $ diff conv-asm.wast  conv.wast
