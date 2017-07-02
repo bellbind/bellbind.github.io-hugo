@@ -95,7 +95,7 @@ I used the [dherman/asm.js](https://github.com/dherman/asm.js) as the syntax che
 But the "asmjs" command does not accept bynarien's accpetable asm.js files
 (only accpets commonsjs module style files which rejected by binaryen's "asm2wasm" command).
 
-I made a little modification for accpeting non cjs module style as:
+I made a little modification for accepting non cjs module style:
 
 - https://github.com/bellbind/asm.js
 
