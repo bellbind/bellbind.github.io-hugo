@@ -39,6 +39,8 @@ The programs embed the benchmark with `console.time()/timeEnd()` that prints exe
 
 ## Notes on pure ES6 version
 
+- [script-es6.js](https://gist.github.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37#file-script-es6-js)
+
 The convolution representation is a list of `{x, y, f}` tuple, not an usual number matrix. 
 The `f` ia a factor value. The `x` and` y` is a relative offsets as `-r` to `r`.
 It can apply to linear arrays with `map()` and `reduce()` as:
@@ -59,6 +61,9 @@ Two convolution are used as activator and inhibitator applied in each step.
 These convolutions forms as circle effect like a force.
 
 ## Notes on asm.js version
+
+- [conv.asm.js](https://gist.github.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37#file-conv-asm-js)
+- [script-asm.js](https://gist.github.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37#file-script-asm-js)
 
 For asm.js, the list of tuple of `{x, y, f}`  turns `ArrayBuffer` as strides of `[int32, int32, float64]` as:
 
@@ -100,6 +105,9 @@ I made a little modification for accepting non cjs module style:
 - https://github.com/bellbind/asm.js
 
 ## Notes on WebAssembly version
+
+- [conv.wast](https://gist.github.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37#file-conv-wast)
+- [script-wasm.js](https://gist.github.com/bellbind/dd1c0cd9cbe422caff8dcdae1010ad37#file-script-wasm-js)
 
 I use [binaryen](https://github.com/WebAssembly/binaryen)'s "asm2wasm" command for making the WebAssembly version.
 The "asm2wams" generated function bodies seem as direct translation of the "conv.asm.js" program.
