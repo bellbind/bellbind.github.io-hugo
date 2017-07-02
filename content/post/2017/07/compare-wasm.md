@@ -175,11 +175,12 @@ $ diff conv-asm.wast  conv.wast
 
 ## Benchmark result
 
-- firefox-54.0.1 and chrome-59.0.3071.115 on macOS 10.12.5: MacBook Pro (13-inch, Late 2016, Two Thunderbolt 3 ports)
+- Browser: firefox-54.0.1 and chrome-59.0.3071.115 on macOS 10.12.5
+- Hardware: MacBook Pro (13-inch, Late 2016, Two Thunderbolt 3 ports)
 
-|      |firfox-54|chrome-59|
-|------|--------:|--------:|
-|ES6   | 70ms    | 240ms   |
-|wasm  | 80ms    | 130ms   |
-|asm.js| 80ms    | 210ms   |
+| version     |firefox-54|chrome-59|
+|-------------|---------:|--------:|
+| Plain ES6   | 70ms     | 240ms   |
+| WebAssembly | 80ms     | 130ms   |
+| asm.js      | 80ms     | 210ms   |
 
