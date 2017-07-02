@@ -1,5 +1,5 @@
 ---
-title: "Comparing WebAssembly performance with asm.js and pure ES6"
+title: "Comparing WebAssembly performance with asm.js and plain ES6"
 slug: "compare-wasm"
 date: 2017-07-03T01:45:18+09:00
 categories: ["2017-07"]
