@@ -1,5 +1,5 @@
 ---
-title: "Comparing WebAssembly with asm.js and pure ES6"
+title: "Comparing WebAssembly performance with asm.js and pure ES6"
 slug: "compare-wasm"
 date: 2017-07-03T01:45:18+09:00
 categories: ["2017-07"]
@@ -15,7 +15,7 @@ as "pure ES6", "asm.js" and "WebAssembly" **without emscripten**.
 
 ## The example: Turing-Pattern cell automaton
 
-"Turing Pattern" is a chemical model for forming patterns
+["Turing Pattern"](https://www.google.com/search?q=Turing+Pattern) is a chemical model for forming patterns of animals
 as a survival between activators and inhibitators.
 A simple generator of the turing pattern is a cell automaton that
 each cell is also activator and inhibitator for neighbor cellss.
@@ -25,7 +25,7 @@ each cell is also activator and inhibitator for neighbor cellss.
 The effect of activators and inhibitators is just gathering value of neighbor cells,
 but the effect as inhibitator is wider than that of activator.
 
-## Active demo
+## Demo
 
 | version      | link                                                                                                       |
 |:------------:|:-----------------------------------------------------------------------------------------------------------|
