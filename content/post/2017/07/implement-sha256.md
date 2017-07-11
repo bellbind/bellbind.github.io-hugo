@@ -285,20 +285,20 @@ The remained `chunk` would be processed in `digest()`.
 
 ```js
     update(buffer) {
-        const {hv, chunk, filled} = this;
+        let {filled} = this;
         if (filled < 0) return this;
+        const {hv, chunk} = this;
         const buf = new Uint8Array(buffer);
         const bytes = buf.byteLength;
-        const u8a = new Uint8Array(filled + bytes);
-        u8a.set(chunk.subarray(0, filled));
-        u8a.set(buf, filled);
         let offs = 0;
-        for (let next = offs + 64; next <= bytes; next += 64) {
-            update(hv, u8a.subarray(offs, next));
+        for (let next = 64 - filled; next <= bytes; next += 64) {
+            chunk.set(buf.subarray(offs, next), filled);
+            update(hv, chunk);
+            filled = 0;
             offs = next;
         }
-        chunk.set(u8a.subarray(offs));
-        this.filled = bytes - offs;
+        chunk.set(buf.subarray(offs), filled);
+        this.filled = filled + bytes - offs;
         this.total += bytes;
         return this;
     }
@@ -363,7 +363,7 @@ function step(i, w, a, b, c, d, e, f, g, h) {
 
 At the step,  `d` turns to `d + t1` and `h` turns to `t1 + t2`.
 Then go next step with **rotating variables** 
-from `[a, b, c, d, e, f, g, h]` to `[new h, a, b, c, new d, e, f, g]`.
+from `[a, b, c, d, e, f, g, h]` to `[new_h, a, b, c, new_d, e, f, g]`.
 
 For example, to implements with loop as:
 
@@ -399,9 +399,7 @@ But the loop code is slower than the recursive function code in JavaScript engin
             this.filled = -1;
         }
         const digest = new DataView(new ArrayBuffer(32));
-        this.hv.forEach((v, i) => {
-            digest.setUint32(i * 4, v, false);
-        });
+        this.hv.forEach((v, i) => {digest.setUint32(i * 4, v, false);});
         return digest.buffer;
     }
 ```
@@ -450,19 +448,26 @@ The "sha256.js" has the entry point for "node.js".
 ```js
 if (typeof require === "function" && require.main === module) {
     const fs = require("fs");
-    const names = process.argv.slice(2);
-    names.forEach(name => {
+    const digestFile = name => new Promise((resolve, reject) => {
+        //const hash = require("crypto").createHash("sha256");
         const hash = new sha256();
         const rs = fs.createReadStream(name);
         rs.on("readable", _ => {
             const buf = rs.read();
             if (buf) hash.update(buf);
         });
-        rs.on("end", _ => {
-            console.log(
-                `${Buffer.from(hash.digest()).toString("hex")}  ${name}`);
-        });
+        rs.on("end", () => {resolve(hash.digest());});
+        rs.on("error", error => {reject(error);});
     });
+    
+    const names = process.argv.slice(2);
+    (async function () {
+        for (const name of names) {
+            const hex = Buffer.from(await digestFile(name)).toString("hex");
+            console.log(`${hex}  ${name}`);
+        }
+    })().catch(console.log);
+
 } else if (typeof module !== "undefined") {
     module.exports = sha256;
 }
@@ -495,13 +500,13 @@ sys	0m0.297s
 $ time node sha256.js 512M.data 
 9acca8e8c22201155389f65abbf6bc9723edc7384ead80503839f49dcc56d767  512M.data
 
-real	1m11.340s
-user	1m10.616s
-sys	0m0.756s
+real	1m9.280s
+user	1m8.905s
+sys	0m0.776s
 
 ```
 
-Note: 512M bytes is 4G bits that is **over 32-bit range**.
+Note: 512M bytes is 4G bits as **over 32-bit range length**.
 It is one of important inputs for testing hash functions.
 
 ---
