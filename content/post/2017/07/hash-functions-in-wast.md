@@ -123,7 +123,7 @@ For example `func $wn` as "w[i >= 16]" is
 just `w16 + (rotr(w15, 7) ^ rotr(w15, 18) ^ (w15 >>> 3)) + w7 + (rotr(w2, 17) ^ rotr(w2, 19) ^ (w2 >>> 10))`.
 It grows on WAST as:
 
-```scm
+```scheme
  (func $wn (param $w16 i32) (param $w15 i32) (param $w7 i32) (param $w2 i32) (result i32)
        (return (i32.add (i32.add (i32.add (get_local $w16)
                                           (i32.xor (i32.xor (i32.rotr (get_local $w15) (i32.const 7))
@@ -137,7 +137,7 @@ It grows on WAST as:
 
 Computation to big endien by filter cascadings as:
 
-```scm
+```scheme
  (func $big32 (param $v i32) (result i32)
        (set_local $v (i32.or
                         (i32.shr_u (i32.and (get_local $v) (i32.const 0xff00ff00)) (i32.const 8))
@@ -160,7 +160,7 @@ $ wasm-as sha256.wast
 
 Initialization call is exist in WebAssembly as `start` declaration, set initial vector as:
 
-```scm
+```scheme
  (start $init)
  ;; memory layout: h[0..31], chunk[32..95]
  (func $init
@@ -188,7 +188,7 @@ then get memory in JavaScript side.
 As SHA256 specification, bit length is 64bit data, so exported funcation would be passed length with two 32bit data.
 The other parameter is chunk filled size. WHole code of `final(filled, bytesl, byteh)` is:
 
-```scm
+```scheme
  (func $final (param $filled i32) (param $bytesl i32) (param $bytesh i32)
        (i32.store8_u offset=32 (get_local $filled) (i32.const 0x80))
        (set_local $filled (i32.add (get_local $filled) (i32.const 1)))
@@ -218,7 +218,7 @@ The other parameter is chunk filled size. WHole code of `final(filled, bytesl, b
 
 `memset(start, value, end)` is simply loops to set each bytes `while (start != end) *start++ = value;` as:
 
-```scm
+```scheme
  ;; start and end is relative address at chunk offset
  (func $memset (param $start i32) (param $v8 i32) (param $end i32)
        (loop $loop (if (i32.eq (get_local $start) (get_local $end)) (return))
@@ -272,7 +272,7 @@ Note that every memory addresses would be aligned 8bytes; start address with mul
 
 `update(offsetm length)` as named `$updateBuf' inside wasm as;
 
-```scm
+```scheme
  (func $updateBuf (param $offs i32) (param $bytes i32)
        (local $filled i32)
        (local $copyend i32)
@@ -323,7 +323,7 @@ void updateBuf(uint32 offs, uint32 bytes) {
 
 `memcpy(start, src, end)` code is `while (start != end) *start++ = *src++;` as: 
 
-```scm
+```scheme
  ;; simple memcpy(start, src, end)
  (func $memcpy (param $start i32) (param $src i32) (param $end i32)
        (loop $loop (if (i32.eq (get_local $start) (get_local $end)) (return))
@@ -344,7 +344,7 @@ that would reduce times of memory access.
 
 To apply them, simply check the both `start` and `src` address started x8, use `i64`  memory access.
 
-```scm
+```scheme
 (func $memcpy (param $start i32) (param $src i32) (param $end i32)
        (local $end8 i32)
        (if (i32.and (i32.eqz (i32.and (get_local $start) (i32.const 0x7))) (i32.eqz (i32.and (get_local $src) (i32.const 0x7))))
