@@ -169,7 +169,37 @@ $ time ./sha256 512M.data
 |extracted (gcc-7)   |3.063s|
 |(coreutil sha256sum)|3.207s|
 
+### clang-4 with `pragma unroll`
 
+clang-4 has loop unrolling optimizations with 
+[`#pragma unroll`](https://clang.llvm.org/docs/AttributeReference.html#pragma-unroll-pragma-nounroll)
+for each loop statements as:
+
+```c
+  uint32_t a = sh[0], b = sh[1], c = sh[2], d = sh[3],
+    e = sh[4], f = sh[5], g = sh[6], h = sh[7];
+  #pragma unroll
+  for (int i = 0; i < 64; i++) {
+    uint32_t s0 = rotr(a, 2) ^ rotr(a, 13) ^ rotr(a, 22);
+    uint32_t s1 = rotr(e, 6) ^ rotr(e, 11) ^ rotr(e, 25);
+    uint32_t ch = (e & f) ^ (~e & g);
+    uint32_t maj = (a & b) ^ (a & c) ^ (b & c);
+    uint32_t t1 = h + s1 + ch + K[i] + w[i];
+    uint32_t t2 = s0 + maj;
+    h = g; g = f; f = e; e = d + t1;
+    d = c; c = b; b = a; a = t1 + t2;
+  }
+```
+
+Apply it at loop steps and former chunk mixing in `update()`.
+It turns as:
+
+|                    | real time |
+|--------------------|----------:|
+|loop      (clang-4) |3.192s|
+|extracted (clang-4) |3.058s|
+
+With "pragma unroll", the extracted version reaches to gcc-7's speed.
 
 ----
 ## About main function: emulating coreutils hash commands
