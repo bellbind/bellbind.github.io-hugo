@@ -307,7 +307,7 @@ void updateBuf(uint32 offs, uint32 bytes) {
   memory[112] += bytes;
   
   for (;;) {
-    uint32 copyend = bytes < 64 - filled ? filled - bytes : 64;
+    uint32 copyend = bytes < 64 - filled ? filled + bytes : 64;
     memcpy(filled, offs, copyend);
     if (copyend < 64) {
        memory[96] = copyend;
@@ -370,7 +370,7 @@ The pseudocode is:
 void memcpy(uint32 start, uint32 src, uint32 end) {
   if ((start & 0x7) == 0 && (src & 0x7) == 0) {
     for (int32 end8 = end - 8; start <= end8; start += 8, src += 8) {
-      *((uint64) start) = *((uint64) src);
+      *((uint64*) start) = *((uint64*) src);
     }
   }
   while (start != end) *start++ = *src++;
