@@ -304,13 +304,13 @@ the psudocode of "$updateBuf" is:
 void updateBuf(uint32 offs, uint32 bytes) {
   int32 filled = memory[96];
   if (filled < 0) return;
-  memory[112] += bytes;
+  *((uint64*) (memory + 104)) += bytes;
   
   for (;;) {
     uint32 copyend = bytes < 64 - filled ? filled + bytes : 64;
     memcpy(filled, offs, copyend);
     if (copyend < 64) {
-       memory[96] = copyend;
+       *((uint32*) (memory + 96)) = copyend;
        return;
     }
     update();
